@@ -1,0 +1,20 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+ 
+}
+
+type Mutation {
+
+  startEc2(instanceId: String!, privateKey: String): Boolean
+
+  stopEc2(instanceId: String!, privateKey: String): Boolean
+
+  statusEc2(instanceId: String!, privateKey: String): Boolean
+
+}
+
+
