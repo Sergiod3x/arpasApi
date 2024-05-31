@@ -2,25 +2,20 @@ const AWS = require('aws-sdk');
 const ec2 = new AWS.EC2();
 
 export const call: any = async (_event, _context, _callbackent): Promise<any> => {
-  // let sshPrivateKey = _event.key; 
-  // let command = _event.command;
   let instanceId = "i-07ec7be845dc07a6e";
-
 
   const params = {
     InstanceIds: [instanceId]
   };
 
   try {
-    // Avvia l'istanza EC2
-    const data = await ec2.startInstances(params).promise();
-    console.log('Success', data.StartingInstances);
-    return true;
-
-    // return {
-    //   statusCode: 200,
-    //   body: JSON.stringify(data)
-    // };
+    // Reboot dell'istanza EC2
+    const data = await ec2.rebootInstances(params).promise();
+    console.log('Success', data);
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data)
+    };
   } catch (err) {
     console.log('Error', err);
     return {
@@ -28,12 +23,9 @@ export const call: any = async (_event, _context, _callbackent): Promise<any> =>
       body: JSON.stringify(err)
     };
   }
-
-
-
-
-
 };
+
+
 
 
 

@@ -1,6 +1,8 @@
 import type { AWS } from "@serverless/typescript";
 
 import ec2Start from "@functions/ec2Start";
+import ec2Stop from "@functions/ec2Stop";
+import ec2Reboot from "@functions/ec2Reboot";
 
 const DEFAULT_STAGE = "dev";
 const DEFAULT_REGION = "eu-west-1";
@@ -49,6 +51,8 @@ const serverlessConfiguration: AWS = {
   // import the function via paths
   functions: {
     ec2Start,
+    ec2Stop,
+    ec2Reboot,
   },
   package: { individually: true },
   custom: {

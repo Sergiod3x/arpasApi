@@ -23,7 +23,7 @@ export default {
 		{
 			http: {
 				method: 'get',
-				path: 'startMachine',
+				path: 'stopMachine',
 				request: {
 					parameters: {
 						paths: {
