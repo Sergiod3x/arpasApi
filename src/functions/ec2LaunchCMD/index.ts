@@ -23,11 +23,11 @@ export default {
 		{
 			http: {
 				method: 'get',
-				path: 'stopMachine/{machineId}',
+				path: 'ec2cmd/{machineIp}',
 				request: {
 					parameters: {
 						paths: {
-							machineId: true,
+							machineIp: true,
 						},
 					}
 				},
@@ -35,5 +35,3 @@ export default {
 		},
 	],
 };
-
-
