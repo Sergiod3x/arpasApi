@@ -23,11 +23,11 @@ export default {
 		{
 			http: {
 				method: 'get',
-				path: 'startMachine',
+				path: 'startMachine/{machineId}',
 				request: {
 					parameters: {
 						paths: {
-							serial: false,
+							machineId: true,
 						},
 					}
 				},

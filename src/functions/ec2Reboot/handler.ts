@@ -2,7 +2,14 @@ const AWS = require('aws-sdk');
 const ec2 = new AWS.EC2();
 
 export const call: any = async (_event, _context, _callbackent): Promise<any> => {
-  let instanceId = "i-07ec7be845dc07a6e";
+  const machineId = _event.pathParameters.machineId;
+
+  // Log del valore per debugging (opzionale)
+  console.log('machineId:', machineId);
+
+
+  let instanceId = machineId;
+
 
   const params = {
     InstanceIds: [instanceId]

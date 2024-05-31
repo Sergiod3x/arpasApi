@@ -4,7 +4,14 @@ const ec2 = new AWS.EC2();
 export const call: any = async (_event, _context, _callbackent): Promise<any> => {
   // let sshPrivateKey = _event.key; 
   // let command = _event.command;
-  let instanceId = "i-07ec7be845dc07a6e";
+
+  const machineId = _event.pathParameters.machineId;
+
+  // Log del valore per debugging (opzionale)
+  console.log('machineId:', machineId);
+
+
+  let instanceId = machineId;
 
 
   const params = {
@@ -15,12 +22,12 @@ export const call: any = async (_event, _context, _callbackent): Promise<any> =>
     // Avvia l'istanza EC2
     const data = await ec2.startInstances(params).promise();
     console.log('Success', data.StartingInstances);
-    return true;
 
-    // return {
-    //   statusCode: 200,
-    //   body: JSON.stringify(data)
-    // };
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data)
+    };
   } catch (err) {
     console.log('Error', err);
     return {

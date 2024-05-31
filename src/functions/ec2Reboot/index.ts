@@ -23,11 +23,11 @@ export default {
 		{
 			http: {
 				method: 'get',
-				path: 'rebootMachine',
+				path: 'rebootMachine/{machineId}',
 				request: {
 					parameters: {
 						paths: {
-							serial: false,
+							machineId: true,
 						},
 					}
 				},
