@@ -20,8 +20,20 @@ export default {
   //   ],
   // },
   events: [
-    // {
-    //   http: "GET fsm"
-    // }
-  ]
-}
+		{
+			http: {
+				method: 'get',
+				path: 'startMachine',
+				request: {
+					parameters: {
+						paths: {
+							serial: false,
+						},
+					}
+				},
+			}
+		},
+	],
+};
+
+

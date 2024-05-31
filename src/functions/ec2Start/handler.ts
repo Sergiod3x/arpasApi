@@ -2,9 +2,9 @@ const AWS = require('aws-sdk');
 const ec2 = new AWS.EC2();
 
 export const call: any = async (_event, _context, _callbackent): Promise<any> => {
-  let sshPrivateKey = _event.key; 
-  let command = _event.command;
-  let instanceId = _event.instanceId;
+  // let sshPrivateKey = _event.key; 
+  // let command = _event.command;
+  let instanceId = "i-07ec7be845dc07a6e";
 
 
   const params = {
