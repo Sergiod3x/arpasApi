@@ -60,10 +60,10 @@ const serverlessConfiguration: AWS = {
    },
   package: { individually: true },
   plugins: ["serverless-esbuild", "serverless-webpack", "serverless-appsync-plugin", "serverless-step-functions", "serverless-plugin-scripts", "serverless-prune-plugin"],
-	prune: {
-		automatic: true,
-		number: 5,
-	},
+	// prune: {
+	// 	automatic: true,
+	// 	number: 5,
+	// },
 	custom: {
 		scripts: {
 			hooks: {

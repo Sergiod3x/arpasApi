@@ -1,4 +1,4 @@
-const mappingTemplatesPath = "admin/organization";
+const mappingTemplatesPath = "admin";
 
 export const mappingTemplates = [
 
@@ -89,6 +89,6 @@ export const dataSource = [
 // LICENSES_MANAGER_STATEMACHINEARN: "arn:aws:states:${self:provider.region}:${aws:accountId}:stateMachine:licenses-manager-${self:service}-${self:provider.stage}",
 // };
 
-export const schema = [
-	"schemas/admin/schema.graphql"
-  ]
+// export const schema = [
+// 	"schemas/admin/schema.graphql"
+//   ]

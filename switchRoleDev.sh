@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CREDS=$(aws sts assume-role --role-arn arn:aws:iam::867806302244:role/OrganizationAccountAccessRole --role-session-name my-sls-session --out json)
+CREDS=$(aws sts assume-role --role-arn arn:aws:iam::475192682913:role/OrganizationAccountAccessRole --role-session-name my-sls-session --out json)
 
 echo CRED: $CREDS
 export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')
