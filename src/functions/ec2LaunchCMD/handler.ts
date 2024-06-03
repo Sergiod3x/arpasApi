@@ -1,16 +1,17 @@
 // const AWS = require('aws-sdk');
 // import Client from "ssh2-sftp-client";
-const fs = require('fs')
+// const fs = require('fs')
 const SSH = require('simple-ssh');
 
 export const call: any = async (_event): Promise<any> => {
-  // let sshPrivateKey = process.env.sshPrivateKey;
+  let sshPrivateKey = process.env.sshPrivateKey;
   // const sshPrivateKey = "chiave da usare";
   // const pemfile = 'fileDellaChiave';
 
 
   const machineIp = _event.pathParameters.machineIp;
-  // const machineIp = "34.242.61.173";
+  const command = _event.pathParameters.cmd;
+  const user = _event.pathParameters.user;
 
   // Log del valore per debugging (opzionale)
   console.log('machineIp:', machineIp);
@@ -18,15 +19,17 @@ export const call: any = async (_event): Promise<any> => {
 
   let instanceIP = machineIp;
   // const instanceIP = _event.instanceIP;
-  const user = 'ec2-user';
-  const cmd = 'echo "HELLO WORLD!"'
+  // const user = user;
+  const cmd = command.replaceAll('%20',' ')
   // const cmd = 'ping www.google.it'
+
+  console.log('command:', command);
 
   try {
     const ssh = new SSH({
       host: instanceIP,
       user: user,
-      key: fs.readFileSync('../keys/key.pem')
+      key: sshPrivateKey
     });
 
     let prompt = new Promise(function (resolve, /* reject */) {
