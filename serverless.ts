@@ -4,7 +4,7 @@ import type { AWS } from "@serverless/typescript";
 // import ec2Start from "@functions/ec2Start";
 // import ec2Stop from "@functions/ec2Stop";
 // import ec2Reboot from "@functions/ec2Reboot";
-// import ec2LaunchCMD from "@functions/ec2LaunchCMD";
+import ec2LaunchCMD from "@functions/ec2LaunchCMD";
 
 const DEFAULT_STAGE = "dev";
 const DEFAULT_REGION = "eu-west-1";
@@ -12,7 +12,7 @@ const DEFAULT_REGION = "eu-west-1";
 const serverlessConfiguration: AWS = {
   service: "arpasApi",
   frameworkVersion: "3",
-  plugins: ["serverless-webpack"],
+  plugins: ["serverless-webpack","simple-ssh"],
   provider: {
     name: "aws",
     stage: "${opt:stage, self:custom.defaultStage}",
@@ -46,11 +46,11 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-    hello
+    hello,
     // ec2Start,
     // ec2Stop,
     // ec2Reboot,
-    // ec2LaunchCMD
+    ec2LaunchCMD
   },
   package: { individually: true },
   custom: {
@@ -65,14 +65,10 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
       external: ["simple-ssh"],
     },
-    // webpack: {
-    //   webpackConfig: './webpack.config.js',
-    //   includeModules: {
-    //     forceInclude: [
-    //       "cpu-features",
-    //       "ssh2"
-    //     ]
-    //   },
+    webpack: {
+			webpackConfig: "./webpack.config.js",
+			includeModules: true,
+		},
     //   packager: 'yarn',
     // },
     package: {
