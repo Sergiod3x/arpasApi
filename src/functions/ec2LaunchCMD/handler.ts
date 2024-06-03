@@ -5,23 +5,15 @@ const SSH = require('simple-ssh');
 
 export const call: any = async (_event): Promise<any> => {
   let sshPrivateKey = process.env.sshPrivateKey;
-  // const sshPrivateKey = "chiave da usare";
-  // const pemfile = 'fileDellaChiave';
-
-
+  
   const machineIp = _event.pathParameters.machineIp;
   const command = _event.pathParameters.cmd;
   const user = _event.pathParameters.user;
 
-  // Log del valore per debugging (opzionale)
   console.log('machineIp:', machineIp);
 
-
   let instanceIP = machineIp;
-  // const instanceIP = _event.instanceIP;
-  // const user = user;
   const cmd = command.replaceAll('%20',' ')
-  // const cmd = 'ping www.google.it'
 
   console.log('command:', command);
 
@@ -68,7 +60,6 @@ export const call: any = async (_event): Promise<any> => {
       statusCode: 200,
       body: JSON.stringify(res)
     };
-    // return response;
 
   } catch (error) {
     console.log(error);

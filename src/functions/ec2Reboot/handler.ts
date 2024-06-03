@@ -3,13 +3,9 @@ const ec2 = new AWS.EC2();
 
 export const call: any = async (_event, _context, _callbackent): Promise<any> => {
   const machineId = _event.pathParameters.machineId;
-
-  // Log del valore per debugging (opzionale)
   console.log('machineId:', machineId);
 
-
   let instanceId = machineId;
-
 
   const params = {
     InstanceIds: [instanceId]

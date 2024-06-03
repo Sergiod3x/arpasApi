@@ -1,32 +1,30 @@
 import { handlerPath } from '@libs/handler-resolver';
-// import pem from "./keys/key.pem";
-import * as path from 'path';
-const fs = require('fs')
+// import type { AWS } from "@serverless/typescript";
+// import * as path from 'path';
+// const fs = require('fs')
 
-const privateKeyPath = path.resolve(__dirname, './keys/key.pem');
-const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+// const privateKeyPath = path.resolve(__dirname, '../../keys/key.pem');
+// const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 
-// const keyFilePath = path.join("/tmp", "key.pem")
+// const decryptedAuthorizedPrivateKey = (
+//   await ssm
+//     .getParameter({
+//       Name: authorizerPrivateKey,
+//       WithDecryption: true,
+//     })
+//     .promise()
+// ).Parameter.Value;
+
+// console.log("${cf:${self:service}-${self:provider.stage}-output.demoStack-prod-ec2xPrivateKeyC}")
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.call`,
   environment: {
     ACCOUNT_ID: "${aws:accountId}",
-    sshPrivateKey: privateKey,
-    // sshPrivateKey:
-    //   "${cf:${self:service}-${self:provider.stage}-output.SSMMoonwardKey}",
-    // TABLE_NAME: "${cf:${self:service}-${self:provider.stage}-output.DynamoDBTableAddress}"
+    // sshPrivateKey: AWS,
+    // sshPrivateKey: privateKey,
+    sshPrivateKey: "${cf:${self:service}-${self:provider.stage}-output.ec2xPrivateKeyC}",
   },
-  // role: "${cf:${self:service}-${self:provider.stage}-output.IAMLambdaProxyRole}",
-  // vpc: {
-  //   securityGroupIds: [
-  //     "${cf:${self:service}-${self:provider.stage}-output.SGLambdaProxy}",
-  //   ],
-  //   subnetIds: [
-  //     "${cf:${self:service}-${self:provider.stage}-output.SubnetLambdaProxy1aPrivate}",
-  //     "${cf:${self:service}-${self:provider.stage}-output.SubnetLambdaProxy1bPrivate}",
-  //   ],
-  // },
   events: [
 		{
 			http: {
