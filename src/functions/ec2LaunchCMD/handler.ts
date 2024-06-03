@@ -1,6 +1,6 @@
 // const AWS = require('aws-sdk');
 // import Client from "ssh2-sftp-client";
-// const fs = require('fs')
+const fs = require('fs')
 const SSH = require('simple-ssh');
 
 export const call: any = async (_event): Promise<any> => {
@@ -10,6 +10,7 @@ export const call: any = async (_event): Promise<any> => {
 
 
   const machineIp = _event.pathParameters.machineIp;
+  // const machineIp = "34.242.61.173";
 
   // Log del valore per debugging (opzionale)
   console.log('machineIp:', machineIp);
@@ -19,13 +20,13 @@ export const call: any = async (_event): Promise<any> => {
   // const instanceIP = _event.instanceIP;
   const user = 'ec2-user';
   const cmd = 'echo "HELLO WORLD!"'
+  // const cmd = 'ping www.google.it'
 
   try {
     const ssh = new SSH({
       host: instanceIP,
       user: user,
-      // key: fs.readFileSync(pemfile)
-      key: ``,
+      key: fs.readFileSync('../keys/key.pem')
     });
 
     let prompt = new Promise(function (resolve, /* reject */) {
@@ -39,6 +40,7 @@ export const call: any = async (_event): Promise<any> => {
         },
         out: function (stdout) { /// get cmd output
           ourout += stdout;
+          console.log("output", ourout += stdout)
         }
       }).start({
         success: function () {

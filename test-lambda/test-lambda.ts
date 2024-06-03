@@ -26,7 +26,7 @@ async function test () {
     const ssh = new SSH({
       host: instanceIP,
       user: user,
-      key: fs.readFileSync('../src/keys/key.pem')
+      key: fs.readFileSync('./src/keys/key.pem')
     });
 
     let prompt = new Promise(function (resolve, /* reject */) {
