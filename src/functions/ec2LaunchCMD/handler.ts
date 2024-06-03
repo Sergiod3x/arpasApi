@@ -1,27 +1,32 @@
-// const AWS = require('aws-sdk');
-// import Client from "ssh2-sftp-client";
-// const fs = require('fs')
+const { SSM } = require("@aws-sdk/client-ssm");
 const SSH = require('simple-ssh');
+const sm = new SSM();
 
 export const call: any = async (_event): Promise<any> => {
   let sshPrivateKey = process.env.sshPrivateKey;
-  
+  // console.log('sshPrivateKey:', sshPrivateKey);
+
+  const decryptedAuthorizedPrivateKey = await sm.getParameter({
+    Name: sshPrivateKey,
+    WithDecryption: true,
+  });
+
   const machineIp = _event.pathParameters.machineIp;
+  // console.log('machineIp:', machineIp);
   const command = _event.pathParameters.cmd;
+  // console.log('command:', command);
   const user = _event.pathParameters.user;
 
-  console.log('machineIp:', machineIp);
-
   let instanceIP = machineIp;
-  const cmd = command.replaceAll('%20',' ')
+  const cmd = command.replaceAll('%20', ' ')
 
-  console.log('command:', command);
 
+  // console.log('decryptedAuthorizedPrivateKey:', decryptedAuthorizedPrivateKey.Parameter.Value);
   try {
     const ssh = new SSH({
       host: instanceIP,
       user: user,
-      key: sshPrivateKey
+      key: decryptedAuthorizedPrivateKey.Parameter.Value
     });
 
     let prompt = new Promise(function (resolve, /* reject */) {
