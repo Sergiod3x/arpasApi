@@ -1,9 +1,10 @@
+import hello from "@functions/hello";
 import type { AWS } from "@serverless/typescript";
 
-import ec2Start from "@functions/ec2Start";
-import ec2Stop from "@functions/ec2Stop";
-import ec2Reboot from "@functions/ec2Reboot";
-import ec2LaunchCMD from "@functions/ec2LaunchCMD";
+// import ec2Start from "@functions/ec2Start";
+// import ec2Stop from "@functions/ec2Stop";
+// import ec2Reboot from "@functions/ec2Reboot";
+// import ec2LaunchCMD from "@functions/ec2LaunchCMD";
 
 const DEFAULT_STAGE = "dev";
 const DEFAULT_REGION = "eu-west-1";
@@ -21,19 +22,23 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    iamRoleStatements: [
-      {
-        Effect: "Allow",
-        Action: [
-          "dynamodb:*",
-          "lambda:*",
-          "cognito-idp:*",
-          "appsync:*",
-          "ec2:*",
-        ],
-        Resource: "*",
-      },
-    ],
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: [
+              // "dynamodb:*",
+              "lambda:*",
+              // "cognito-idp:*",
+              // "appsync:*",
+              "ec2:*",
+            ],
+            Resource: "*",
+          }
+        ]
+      }
+    },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
@@ -41,23 +46,35 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-    ec2Start,
-    ec2Stop,
-    ec2Reboot,
-    ec2LaunchCMD
+    hello
+    // ec2Start,
+    // ec2Stop,
+    // ec2Reboot,
+    // ec2LaunchCMD
   },
   package: { individually: true },
   custom: {
-    webpack: {
-      webpackConfig: './webpack.config.js',
-      includeModules: {
-        forceInclude: [
-          "cpu-features",
-          "ssh2"
-        ]
-      },
-      packager: 'yarn',
+    esbuild: {
+      bundle: true,
+      minify: false,
+      sourcemap: true,
+      exclude: ["aws-sdk"],
+      target: "node16",
+      define: { "require.resolve": undefined },
+      platform: "node",
+      concurrency: 10,
+      external: ["simple-ssh"],
     },
+    // webpack: {
+    //   webpackConfig: './webpack.config.js',
+    //   includeModules: {
+    //     forceInclude: [
+    //       "cpu-features",
+    //       "ssh2"
+    //     ]
+    //   },
+    //   packager: 'yarn',
+    // },
     package: {
       individually: true,
       include: [

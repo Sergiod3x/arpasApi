@@ -80,7 +80,7 @@ export const call: any = async (_event): Promise<any> => {
       `,
     });
 
-    let prompt = new Promise(function (resolve, reject) {
+    let prompt = new Promise(function (resolve, /* reject */) {
 
       let ourout = "";
 
