@@ -18,6 +18,8 @@ export const call: any = async (_event): Promise<any> => {
   const user = _event.pathParameters.user;
 
   let instanceIP = machineIp;
+
+  //sostituiamo il %20 inserito al posto degli spazi nella url
   const cmd = command.replaceAll('%20', ' ')
 
   try {
@@ -33,12 +35,15 @@ export const call: any = async (_event): Promise<any> => {
 
       ssh.exec(cmd, { /// start cmd
         exit: function () { /// when cmd ends
-          ourout += "\nsuccessfully exited!";
+          // ourout += "\nsuccessfully exited!";
           resolve(ourout);
         },
         out: function (stdout) { /// get cmd output
-          ourout += stdout;
+          // ourout += stdout;
+          ourout;
           console.log("output", ourout += stdout)
+          console.log("ourout", ourout)
+          console.log("stdout", stdout)
         }
       }).start({
         success: function () {
