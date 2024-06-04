@@ -20,8 +20,6 @@ export const call: any = async (_event): Promise<any> => {
   let instanceIP = machineIp;
   const cmd = command.replaceAll('%20', ' ')
 
-
-  // console.log('decryptedAuthorizedPrivateKey:', decryptedAuthorizedPrivateKey.Parameter.Value);
   try {
     const ssh = new SSH({
       host: instanceIP,

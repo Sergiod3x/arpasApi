@@ -65,8 +65,6 @@ const serverlessConfiguration: AWS = {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
     },
-    //   packager: 'yarn',
-    // },
     package: {
       individually: true,
       include: [
