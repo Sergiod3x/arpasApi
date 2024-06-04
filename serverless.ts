@@ -4,13 +4,13 @@ import ec2Start from "@functions/ec2Start";
 import ec2Stop from "@functions/ec2Stop";
 import ec2Reboot from "@functions/ec2Reboot";
 import ec2LaunchCMD from "@functions/ec2LaunchCMD";
-import lambdaAuthorizer from "@functions/lambda-authorizer";
+import authorizer from "@functions/authorizer";
 
 const DEFAULT_STAGE = "dev";
 const DEFAULT_REGION = "eu-west-1";
 
 const serverlessConfiguration: AWS = {
-  service: "arpasApi",
+  service: "ec2-manager",
   frameworkVersion: "3",
   plugins: ["serverless-webpack", "simple-ssh"],
   provider: {
@@ -37,15 +37,11 @@ const serverlessConfiguration: AWS = {
         statements: [
           {
             Effect: "Allow",
-            Action: [
-              "lambda:*",
-              "ec2:*",
-              "ssm:*"
-            ],
+            Action: ["lambda:*", "ec2:*", "ssm:*"],
             Resource: "*",
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
@@ -58,7 +54,7 @@ const serverlessConfiguration: AWS = {
     ec2Stop,
     ec2Reboot,
     ec2LaunchCMD,
-    lambdaAuthorizer
+    authorizer,
   },
   package: { individually: true },
   custom: {
@@ -81,7 +77,7 @@ const serverlessConfiguration: AWS = {
       individually: true,
       include: [
         "node_modules/cpu-features/build/Release/cpufeatures.node",
-        "node_modules/ssh2/lib/protocol/crypto/build/Release/sshcrypto.node"
+        "node_modules/ssh2/lib/protocol/crypto/build/Release/sshcrypto.node",
       ],
     },
     defaultStage: DEFAULT_STAGE,
