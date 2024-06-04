@@ -4,6 +4,7 @@ import ec2Start from "@functions/ec2Start";
 import ec2Stop from "@functions/ec2Stop";
 import ec2Reboot from "@functions/ec2Reboot";
 import ec2LaunchCMD from "@functions/ec2LaunchCMD";
+import lambdaAuthorizer from "@functions/lambda-authorizer";
 
 const DEFAULT_STAGE = "dev";
 const DEFAULT_REGION = "eu-west-1";
@@ -20,6 +21,16 @@ const serverlessConfiguration: AWS = {
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
+    },
+    httpApi: {
+      authorizers: {
+        authorizer: {
+          name: "authorizer",
+          type: "request",
+          identitySource: "method.request.header.Authorization",
+          identityValidationExpression: "Bearer (.*)",
+        },
+      },
     },
     iam: {
       role: {
@@ -46,7 +57,8 @@ const serverlessConfiguration: AWS = {
     ec2Start,
     ec2Stop,
     ec2Reboot,
-    ec2LaunchCMD
+    ec2LaunchCMD,
+    lambdaAuthorizer
   },
   package: { individually: true },
   custom: {
