@@ -22,16 +22,16 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    httpApi: {
-      authorizers: {
-        authorizer: {
-          name: "authorizer",
-          type: "request",
-          identitySource: "method.request.header.Authorization",
-          identityValidationExpression: "Bearer (.*)",
-        },
-      },
-    },
+    // httpApi: {
+    //   authorizers: {
+    //     authorizer: {
+    //       name: "authorizer",
+    //       type: "request",
+    //       identitySource: "method.request.header.Authorization",
+    //       identityValidationExpression: "Bearer (.*)",
+    //     },
+    //   },
+    // },
     iam: {
       role: {
         statements: [

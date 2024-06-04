@@ -1,11 +1,11 @@
 import { handlerPath } from '@libs/handler-resolver';
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.call`,
-  environment: {
-    ACCOUNT_ID: "${aws:accountId}",
-  },
-  events: [
+	handler: `${handlerPath(__dirname)}/handler.call`,
+	environment: {
+		ACCOUNT_ID: "${aws:accountId}",
+	},
+	events: [
 		{
 			http: {
 				method: 'get',
@@ -16,6 +16,13 @@ export default {
 							machineId: true,
 						},
 					}
+				},
+				authorizer: {
+					name: "authorizer",
+					type: "token",
+					identitySource: "method.request.header.Authorization",
+					identityValidationExpression: "Bearer (.*)",
+					resultTtlInSeconds: 0,
 				},
 			}
 		},

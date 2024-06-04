@@ -1,5 +1,7 @@
 import { handlerPath } from "@libs/handler-resolver";
 
+
+
 export default {
   handler: `${handlerPath(__dirname)}/handler.call`,
   environment: {
@@ -22,6 +24,13 @@ export default {
               cmd: true,
             },
           },
+        },
+        authorizer: {
+          name: "authorizer",
+          type: "token",
+          identitySource: "method.request.header.Authorization",
+          identityValidationExpression: "Bearer (.*)",
+          resultTtlInSeconds: 0,
         },
       },
     },
