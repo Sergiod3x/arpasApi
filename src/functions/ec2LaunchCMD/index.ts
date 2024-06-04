@@ -27,8 +27,8 @@ export default {
 					parameters: {
 						paths: {
 							machineIp: true,
-              user: true,
-              cmd: true
+							user: true,
+							cmd: true
 						},
 					}
 				},
