@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 export const handler = async (event) => {
   let authorizerPublicKey = process.env.authorizerPublicKey;
-  // console.log(event);
+  console.log("authorizerPublicKey", authorizerPublicKey);
 
   var effect = "";
   let payload: any = {};

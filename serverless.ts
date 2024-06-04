@@ -6,11 +6,11 @@ import ec2Reboot from "@functions/ec2Reboot";
 import ec2LaunchCMD from "@functions/ec2LaunchCMD";
 import authorizer from "@functions/authorizer";
 
-const DEFAULT_STAGE = "dev";
+const DEFAULT_STAGE = "prod";
 const DEFAULT_REGION = "eu-west-1";
 
 const serverlessConfiguration: AWS = {
-  service: "ec2-manager",
+  service: "arcgis-enterprise",
   frameworkVersion: "3",
   plugins: ["serverless-webpack", "simple-ssh"],
   provider: {
